@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center p-4 bg-blue-700 shadow">
+    <h1 class="text-3xl text-blue-100 px-8 py-4">Instant Database Search</h1>
+    <h3 class="text-blue-200">Super fast Database search using Django and HTMX 💫</h3>
+</div>
+
+<hr>
+
+<div class="min-h-screen bg-gray-100 p-6 text-gray-900 w-full flex flex-col items-center">
+    <h3>
+        <span class="htmx-indicator mb-6 text-green-800 text-4xl">
+            ......
+        </span>
+    </h3>
+
+    <form class="w-full max-w-lg mb-4">
+        {% csrf_token %}
+        <input
+            class="form-control w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="search"
+            name="search"
+            placeholder="Begin Typing To Search Users..."
+            hx-get="/results/"
+            hx-trigger="keyup changed, search"
+            hx-target="#search-results"
+            hx-indicator=".htmx-indicator"
+        >
+    </form>
+
+    <div id="search-results" class="w-full max-w-4xl">
+        {% include "search_results.html" %}
+    </div>
+</div>
+{% endblock %}
